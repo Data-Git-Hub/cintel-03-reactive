@@ -57,12 +57,9 @@ with ui.layout_columns():
 
     @render_plotly
     def plot1():
-        # Filter data based on slider value only
-        filtered_penguins = penguins[penguins["bill_length_mm"] <= input.slider()]
-
-        # Plotly histogram for bill length
+        # Use filtered_data() instead of penguins directly
         fig = px.histogram(
-            filtered_penguins,
+            filtered_data(),
             x="bill_length_mm",
             title="Penguins Bill Length Histogram",
         )
@@ -152,13 +149,13 @@ with ui.layout_columns():
 # Reactive calculations and effects
 # --------------------------------------------------------
 
+
 # Add a reactive calculation to filter the data
-# By decorating the function with @reactive, we can use the function to filter the data
-# The function will be called whenever an input functions used to generate that output changes.
-# Any output that depends on the reactive function (e.g., filtered_data()) will be updated when the data changes.
-
-
-@reactive.Calc
+@reactive.calc
 def filtered_data():
-    # Your reactive code here
-    pass
+    # Filter data based on selected species and bill length
+    filtered = penguins[
+        (penguins["bill_length_mm"] <= input.slider())
+        & (penguins["species"].isin(input.selected_species_list()))
+    ]
+    return filtered
