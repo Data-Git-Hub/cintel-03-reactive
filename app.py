@@ -4,7 +4,7 @@ from shinywidgets import render_plotly
 from palmerpenguins import load_penguins
 import seaborn as sns
 import matplotlib.pyplot as plt
-from shiny import render
+from shiny import render, reactive
 
 # Load the palmerpenguins dataset
 penguins = load_penguins()
@@ -146,3 +146,19 @@ with ui.layout_columns():
         @render.data_frame
         def penguins_grid():
             return render.DataGrid(penguins, selection_mode="none")  # No row selection
+
+
+# --------------------------------------------------------
+# Reactive calculations and effects
+# --------------------------------------------------------
+
+# Add a reactive calculation to filter the data
+# By decorating the function with @reactive, we can use the function to filter the data
+# The function will be called whenever an input functions used to generate that output changes.
+# Any output that depends on the reactive function (e.g., filtered_data()) will be updated when the data changes.
+
+
+@reactive.Calc
+def filtered_data():
+    # Your reactive code here
+    pass
