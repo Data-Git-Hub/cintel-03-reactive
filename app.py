@@ -139,6 +139,7 @@ with ui.navset_pill(id="tab"):
     with ui.nav_panel("Data"):
         with ui.layout_sidebar():
             with ui.sidebar():
+                ui.h2("Sidebar")  # Header for the sidebar
                 ui.input_slider(
                     "bill_length_slider",
                     "Filter by Bill Length (mm)",
@@ -186,4 +187,3 @@ with ui.navset_pill(id="tab"):
                             title="Filtered Penguins Grid by Flipper Length",
                         )
                         return fig
-
